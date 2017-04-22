@@ -11,6 +11,7 @@ InstagramAPI = InstagramAPI("<username>", "<password>")
 InstagramAPI.login()
 
 users = [
+    # 'happycatclub',
     'yiyun.zhu',
     'dd_max_',
 ]
@@ -35,10 +36,12 @@ for user in users:
     for feed in user_feeds:
         likes += feed.get('like_count', 0)
         comments += feed.get('comment_count', 0)
+        reviews += int(feed.get('view_count', 0))
 
     print 'feeds: ' + str(feeds) \
           + ', likes: ' + str(likes) \
-          + ', comments: ' + str(comments)
+          + ', comments: ' + str(comments) \
+          + ', reviews: ' + str(reviews)
 
     # Restore data
     summary.insert({

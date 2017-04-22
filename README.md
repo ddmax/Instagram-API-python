@@ -11,7 +11,7 @@ Unofficial Instagram API to give you access to ALL Instagram features (like, fol
 This is the Python port of https://github.com/mgp25/Instagram-API which is written in PHP.
 It is still a work in progress to copy all of its API endpoints.
 
-The demo.py implemented fetching total feeds, likes, comments of a user by given username.
+The demo.py implemented fetching total feeds, likes, comments, video view counts of a user by given username.
 
 ### Installation Instructions
 
