@@ -11,12 +11,13 @@ Unofficial Instagram API to give you access to ALL Instagram features (like, fol
 This is the Python port of https://github.com/mgp25/Instagram-API which is written in PHP.
 It is still a work in progress to copy all of its API endpoints.
 
+The demo.py implemented fetching total feeds, likes, comments of a user by given username.
 
 ### Installation Instructions
 
 1. Fork/Clone/Download this repo
 
-    `git clone https://github.com/LevPasha/Instagram-API-python.git`
+    `git clone https://github.com/ddmax/Instagram-API-python.git`
 
 
 2. Navigate to the directory
@@ -28,13 +29,20 @@ It is still a work in progress to copy all of its API endpoints.
 
     `pip install -r requirements.txt`
 
+4. You may download ffmpeg
 
-4. Modify test.py with your own username and password
+    ```shell
+    python
+    >>> import imageio
+    >>> imageio.plugins.ffmpeg.download()
+    ```
+
+5. **Modify demo.py with your own username and password**
 
 
-5. Run the test script (**use text editor to edit the script and type in valid Instagram username/password**)
+6. Run the test script
 
-    `python test.py`
+    `python demo.py`
 
 
 ### Now InstagramAPI.py can:
