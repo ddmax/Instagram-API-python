@@ -501,9 +501,11 @@ class InstagramAPI:
         query = self.SendRequest('feed/timeline/?rank_token='+ str(self.rank_token) +'&ranked_content=true&')
         return query
 
-    def getUserFeed(self, usernameId, maxid = '', minTimestamp = None):
-        query = self.SendRequest('feed/user/' + str(usernameId) + '/?max_id=' + str(maxid) + '&min_timestamp=' + str(minTimestamp)
-            + '&rank_token='+ str(self.rank_token) +'&ranked_content=true')
+    def getUserFeed(self, usernameId, maxid = '', minTimestamp = None, maxTimestamp = None):
+        query = self.SendRequest('feed/user/' + str(usernameId) + '/?max_id=' + str(maxid)
+                                 + '&min_timestamp=' + str(minTimestamp)
+                                 + '&max_timestamp=' + str(maxTimestamp)
+                                 + '&rank_token=' + str(self.rank_token) +'&ranked_content=true')
         return query
 
     def getSelfUserFeed(self, maxid = '', minTimestamp = None):
@@ -730,20 +732,24 @@ class InstagramAPI:
                 return followers            
             next_max_id = temp["next_max_id"] 
 
-    def getTotalUserFeed(self, usernameId, minTimestamp = None):
+    def getTotalUserFeed(self, usernameId, minTimestamp = None, maxTimestamp = None, message = ''):
         user_feed = []
         next_max_id = ''
+        i = 1
         while 1:
-            self.getUserFeed(usernameId, next_max_id, minTimestamp)
+            sys.stdout.write('\r' + message + str('.' * i))
+            self.getUserFeed(usernameId, next_max_id, minTimestamp, maxTimestamp)
             temp = self.LastJson
             for item in temp["items"]:
                 user_feed.append(item)
             if temp["more_available"] == False:
+                sys.stdout.write(' done!\n')
                 return user_feed
             next_max_id = temp["next_max_id"]
+            i += 1
 
-    def getTotalSelfUserFeed(self, minTimestamp = None):
-        return self.getTotalUserFeed(self.username_id, minTimestamp) 
+    def getTotalSelfUserFeed(self, minTimestamp = None, maxTimestamp = None):
+        return self.getTotalUserFeed(self.username_id, minTimestamp, maxTimestamp)
     
     def getTotalSelfFollowers(self):
         return self.getTotalFollowers(self.username_id)

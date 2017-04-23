@@ -11,11 +11,16 @@ InstagramAPI = InstagramAPI("<username>", "<password>")
 InstagramAPI.login()
 
 users = [
-    # 'happycatclub',
+    'happycatclub',
     'yiyun.zhu',
     'dd_max_',
 ]
 url_get_user_id = 'https://www.instagram.com/{0}/?__a=1'
+
+# Since 2016-01-01 00:00:00
+min_timestamp = '1451606400'
+# Until 2016-12-31 23:59:59
+max_timestamp = '1483228799'
 
 # MongoDB
 client = MongoClient("localhost", 27017, connect=False)
@@ -23,11 +28,14 @@ db = client.instagram
 summary = db.summary
 
 for user in users:
-    print 'Fetching ' + user
+    message = 'Fetching ' + user
 
     content = json.loads(requests.get(url_get_user_id.format(user)).content)
     user_id = str(content.get('user').get('id'))
-    user_feeds = InstagramAPI.getTotalUserFeed(user_id)
+    user_feeds = InstagramAPI.getTotalUserFeed(user_id,
+                                               minTimestamp=min_timestamp,
+                                               maxTimestamp=max_timestamp,
+                                               message=message)
 
     feeds = len(user_feeds)
     likes = 0
